@@ -1,7 +1,8 @@
 {
-    "name": "web1",
-    "short_name": "web1",
-    "start_url": ".",
+    "name": "Restro",
+    "short_name": "Restro",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
