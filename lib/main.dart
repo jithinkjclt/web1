@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.orange,
-        scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.blue,
+        useMaterial3: true,  // Ensures Material Icons are correctly loaded
       ),
-      home:  AuthPage(),
+      home: AuthPage(),
     );
   }
 }

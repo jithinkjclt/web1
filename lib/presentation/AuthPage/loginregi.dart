@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web1/presentation/AuthPage/cubit/authpage_cubit.dart';
+import 'package:web1/presentation/dashbord/AdminDashboard.dart';
 
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
@@ -232,41 +233,66 @@ class AuthPage extends StatelessWidget {
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: _buildTextField(context,
-                                                  'First Name', Icons.person,
-                                                  isMobile: isMobile),
+                                              child: _buildTextField(
+                                                context,
+                                                'First Name',
+                                                Icons.person,
+                                                isMobile: isMobile,
+                                                controller:
+                                                    cubit.firstNameController,
+                                              ),
                                             ),
                                             const SizedBox(width: 15),
                                             Expanded(
                                               child: _buildTextField(
-                                                  context,
-                                                  'Last Name',
-                                                  Icons.person_outline,
-                                                  isMobile: isMobile),
+                                                context,
+                                                'Last Name',
+                                                Icons.person_outline,
+                                                isMobile: isMobile,
+                                                controller:
+                                                    cubit.lastNameController,
+                                              ),
                                             ),
                                           ],
                                         ),
                                         const SizedBox(height: 20),
                                         _buildTextField(
-                                            context, 'Group Name', Icons.group,
-                                            isMobile: isMobile),
-                                        const SizedBox(height: 20),
-                                        _buildTextField(context, 'Username',
-                                            Icons.account_circle,
-                                            isMobile: isMobile),
+                                          context,
+                                          'Group Name',
+                                          Icons.group,
+                                          isMobile: isMobile,
+                                          controller: cubit.groupNameController,
+                                        ),
                                         const SizedBox(height: 20),
                                         _buildTextField(
-                                            context, 'Mobile', Icons.phone,
-                                            isMobile: isMobile),
+                                          context,
+                                          'Username',
+                                          Icons.account_circle,
+                                          isMobile: isMobile,
+                                          controller: cubit.usernameController,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        _buildTextField(
+                                          context,
+                                          'Mobile',
+                                          Icons.phone,
+                                          isMobile: isMobile,
+                                          controller: cubit.mobileController,
+                                        ),
                                         const SizedBox(height: 20),
                                       ],
 
                                       // Common fields for both login and registration
                                       _buildTextField(
-                                          context, 'Email', Icons.email,
-                                          isMobile: isMobile),
+                                        context,
+                                        'Email',
+                                        Icons.email,
+                                        isMobile: isMobile,
+                                        controller: cubit.emailController,
+                                      ),
                                       const SizedBox(height: 20),
                                       TextFormField(
+                                        controller: cubit.passwordController,
                                         obscureText: cubit.obscurePassword,
                                         decoration: InputDecoration(
                                           labelText: 'Password',
@@ -375,7 +401,24 @@ class AuthPage extends StatelessWidget {
                                           ],
                                         ),
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            // Handle authentication
+                                            if (isLogin) {
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AdminDashboard(),
+                                              )); // Handle login
+                                              print(
+                                                  'Login with: ${cubit.emailController.text}, ${cubit.passwordController.text}');
+                                              // Add your actual login logic here
+                                            } else {
+                                              // Handle registration
+                                              print(
+                                                  'Register with: ${cubit.firstNameController.text}, ${cubit.lastNameController.text}, ${cubit.emailController.text}');
+                                              // Add your actual registration logic here
+                                            }
+                                          },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: primaryColor,
                                             foregroundColor: Colors.white,
@@ -495,11 +538,12 @@ class AuthPage extends StatelessWidget {
   }
 
   Widget _buildTextField(BuildContext context, String label, IconData icon,
-      {bool isMobile = false}) {
+      {bool isMobile = false, TextEditingController? controller}) {
     final cubit = context.read<AuthpageCubit>();
     final primaryColor = cubit.primaryColor;
 
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(

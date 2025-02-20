@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build/web",  // This should match where Flutter builds your web app
+    "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",
