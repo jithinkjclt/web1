@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="web1">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>web1</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f8f8;
+    }
+
+    /* Custom Loading Screen */
+    #loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      z-index: 9999;
+    }
+
+    /* Loading Image */
+    #loading-screen img {
+      width: 150px; /* Adjust size as needed */
+      height: auto;
+    }
+
+    /* Hide Flutter content initially */
+    #flutter-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Custom Loading Screen -->
+<div id="loading-screen">
+  <img src="assets/loading.gif" alt="Loading..." />
+</div>
+
+<!-- Flutter App Container -->
+<div id="flutter-container">
+  <script src="flutter_bootstrap.js" async></script>
+</div>
+
+<script>
+  // Prevent Flutter's default loader from appearing
+  window.addEventListener('load', () => {
+    const flutterLoader = document.querySelector('flutter-loader');
+    if (flutterLoader) {
+      flutterLoader.remove();
+    }
+  });
+
+  // Hide custom loading screen and show Flutter app
+  function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    const flutterContainer = document.getElementById('flutter-container');
+
+    if (loadingScreen) {
+      loadingScreen.style.display = 'none';
+    }
+    if (flutterContainer) {
+      flutterContainer.style.display = 'block';
+    }
+  }
+
+  // Ensure smooth transition from loading screen to Flutter
+  setTimeout(() => {
+    const script = document.createElement('script');
+    script.src = "flutter_bootstrap.js";
+    script.async = true;
+    script.onload = hideLoadingScreen; // Hide loading screen after Flutter loads
+    document.body.appendChild(script);
+  }, 1000); // Increase delay if needed
+</script>
+
+</body>
+</html>

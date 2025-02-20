@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "build/web",  // This should match where Flutter builds your web app
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
